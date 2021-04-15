@@ -31,6 +31,7 @@ button {
 
 h2 {
     color: white;
+    margin-top: 0px;
 }
 
 #card-P1, #card-P2 {
@@ -43,10 +44,10 @@ h2 {
     display: flex;
     align-items: flex-end;
     position: relative;
-    background-size: 350px 300px;
+    background-size: 302px 239px;
     background-repeat: no-repeat;
-    background-position-x: 10px;
-    background-position-y: 5px;
+    background-position-x: 32px;
+    background-position-y: 46px;
     border-radius: 33px;
 }
 
@@ -117,4 +118,5 @@ form {
 
 #placar, #quantidade-cartas {
     color: white;
+    font-size: 1.5em;
 }

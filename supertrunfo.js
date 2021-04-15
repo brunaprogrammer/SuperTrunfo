@@ -30,7 +30,7 @@ let card3 = {
 
 let card4 = {
     nome: "Bulbasaur",
-    imagem:"https://static.wikia.nocookie.net/pokedex-br/images/a/a2/Bulbasauro_Pose.png/revision/latest?cb=20151224122219&path-prefix=pt-br",
+    imagem:"https://pm1.narvii.com/6341/1479cf12930af330a7da766324dd7647a42f60c6_hq.jpg",
     atributos: {
         força: 65,
         ataque: 65,
@@ -74,6 +74,7 @@ function sortearCard (){
     cardsP2 = cards[numeroCardsP2];
     cards.splice(numeroCardsP2, 1);
 
+    atualizarCartas()
     let numeroCardsP1 = parseInt(Math.random() * cards.length);
    
     cardsP1 = cards[numeroCardsP1];
@@ -119,6 +120,9 @@ function obtemAtributoSelecionado(){
             return radioatributo[i].value;
         }
     }
+
+    return -1;
+
 }
 
 //Jogar:
@@ -128,6 +132,8 @@ function jogar(){
     let divResultado = document.getElementById("resultado");
     
     let atributoSelecionado = obtemAtributoSelecionado();
+
+    if(atributoSelecionado == -1)return;
 
     if(cardsP1.atributos[atributoSelecionado] > cardsP2.atributos[atributoSelecionado]){
         htmlResultado = "<p class='resultado-final'>Venceu</p>";
@@ -140,8 +146,6 @@ function jogar(){
     }
 
     if(cards.length == 0){
-
-        alert("Fim de jogo");
 
         if(pontosP1 > pontosP2){
             htmlResultado = "<p class='resultado-final'>Venceu</p>"
@@ -175,7 +179,7 @@ function exibirCardP2(){
 
     let opcoesTexto = "";
     for(let atributo in cardsP2.atributos){
-        opcoesTexto += "<p type='text' name='atributo' value='" + atributo + "'>" + atributo + " " + cardsP2.atributos[atributo] + "<br>"
+        opcoesTexto += "<p type='text' name='atributo' value='" + atributo + "'>" + atributo + " " + cardsP2.atributos[atributo] + "<br>" + "<br>"
     }
 
     let html = "<div id='opcoes' class='carta-status --spacing'>";
