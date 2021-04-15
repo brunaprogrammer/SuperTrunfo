@@ -17,26 +17,19 @@
         <form id="form">
             <h2>Escolha o seu atributo</h2>
             <div class="wrapper">
-                <div>
-                    <div id="card-P1">
-                        <img src="https://www.alura.com.br/assets/img/imersoes/dev-2021/card-super-trunfo-transparent-ajustado.png"
-                            style=" width: inherit; height: inherit; position: absolute;">
-                        <h3></h3>
-                    </div>
+                <div id="placar"></div>
+                <div id="quantidade-cartas"></div>
+                <div id="cartas">
+                    <div id="card-P1" class="carta"></div>
+                    <div id="card-P2" class="carta"> </div>
                 </div>
-                <div>
-                    <div id="card-P2" class="carta">
-                        <img src="https://www.alura.com.br/assets/img/imersoes/dev-2021/card-super-trunfo-transparent-ajustado.png"
-                            style=" width: inherit; height: inherit; position: absolute;">
-                    </div>
-                </div>
+                <button type="button" id="btnJogar" onclick="jogar()" disabled="false">Jogar</button>
             </div>
-            <button type="button" id="btnJogar" onclick="jogar()" disabled="false">Jogar</button>
-            <div id="resultado">
 
-            </div>
+            <div id="resultado"></div>
+
+            <button type="button" id="btnProximaRodada" onclick="proximaRodada()" disabled="true">Proxima rodada</button>
         </form>
-
     </div>
 
     <script src="supertrunfo.js"></script>

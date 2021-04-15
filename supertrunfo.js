@@ -1,5 +1,3 @@
-//Cartas:
-
 let card1 = {
     nome: "Pikachu",
     imagem:"https://i.pinimg.com/originals/f5/1d/08/f51d08be05919290355ac004cdd5c2d6.png",
@@ -43,26 +41,47 @@ let card4 = {
 let cards = [card1, card2, card3, card4];
 
 let cardsP1;
-
 let cardsP2;
+
+
+let pontosP1 = 0;
+let pontosP2 = 0;
+
+atualizarPlacar();
+atualizarCartas();
+
+function atualizarCartas(){
+
+    let divQuantidadeCartas = document.getElementById("quantidade-cartas");
+    let html = "Quantidade de cartas no jogo " + cards.length;
+
+    divQuantidadeCartas.innerHTML = html;
+}
+
+function atualizarPlacar(){
+
+    let divPlacar = document.getElementById("placar");
+    let html = "Jogador " + pontosP1 + "/" + pontosP2 + " Máquina";
+
+    divPlacar.innerHTML = html;
+}
 
 //Sorteio de cartas:
 
 function sortearCard (){
     
-    let numeroCardsP2 = parseInt(Math.random() * 4);
+    let numeroCardsP2 = parseInt(Math.random() * cards.length);
     cardsP2 = cards[numeroCardsP2];
+    cards.splice(numeroCardsP2, 1);
 
-    let numeroCardsP1 = parseInt(Math.random() * 4);
-    while(numeroCardsP1 == numeroCardsP2){
-       numeroCardsP1 = parseInt(Math.random() * 4);
-    }
+    let numeroCardsP1 = parseInt(Math.random() * cards.length);
+   
     cardsP1 = cards[numeroCardsP1];
-    console.log(cardsP1);
+    cards.splice(numeroCardsP1, 1);
 
     document.getElementById('btnSortear').disabled = true;
     document.getElementById('btnJogar').disabled = false;
-    //exibirOpcoes();
+   
     exibirCardP1()
 
 }
@@ -89,20 +108,6 @@ function exibirCardP1 () {
 
 }
 
-//Exibir opções dos atributos:
-
-/*function exibirOpcoes(){
-
-    let opcoes = document.getElementById('opcoes');
-    let opcoesTexto = "";
-
-    for(let atributo in cardsP1.atributos){
-        opcoesTexto += "<input type='radio' name='atributo' value='" + atributo + "'>" + atributo
-    }
-    opcoes.innerHTML = opcoesTexto;
-
-}*/
-
 //Pegar a opção selecionada:
 
 function obtemAtributoSelecionado(){
@@ -126,14 +131,37 @@ function jogar(){
 
     if(cardsP1.atributos[atributoSelecionado] > cardsP2.atributos[atributoSelecionado]){
         htmlResultado = "<p class='resultado-final'>Venceu</p>";
+        pontosP1++
     } else if( cardsP1.atributos[atributoSelecionado] < cardsP2.atributos[atributoSelecionado]){
         htmlResultado = "<p class='resultado-final'>Perdeu</p>";
+        pontosP2++
     } else {
         htmlResultado = "<p class='resultado-final'>Empatou</p>";
     }
 
+    if(cards.length == 0){
+
+        alert("Fim de jogo");
+
+        if(pontosP1 > pontosP2){
+            htmlResultado = "<p class='resultado-final'>Venceu</p>"
+        } else if(pontosP2 > pontosP1){
+            htmlResultado = "<p class='resultado-final'>Perdeu</p>";
+        } else {
+            htmlResultado = "<p class='resultado-final'>Empatou</p>";
+        }
+    } else {
+        document.getElementById('btnProximaRodada').disabled = false
+    }
+
     divResultado.innerHTML = htmlResultado;
+
+    document.getElementById('btnJogar').disabled = true;
+
+
+    atualizarPlacar();
     exibirCardP2();
+    atualizarCartas();
 }
 
 function exibirCardP2(){
@@ -154,5 +182,18 @@ function exibirCardP2(){
 
     divCardP2.innerHTML = moldura + nome + html + opcoesTexto + "</div>";
 
+}
+
+function proximaRodada(){
+
+    let divCards = document.getElementById("cartas");
+    divCards.innerHTML = `<div id="card-P1" class="carta"></div> <div id="card-P2" class="carta"></div>`
+
+    document.getElementById('btnSortear').disabled = false
+    document.getElementById('btnJogar').disabled = true
+    document.getElementById('btnProximaRodada').disabled = true
+
+    let divResultado = document.getElementById("resultado");
+    divResultado.innerHTML = "";
 }
 
